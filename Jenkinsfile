@@ -8,8 +8,8 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                sh "kubectl delete -f example_svc.yaml"
-                sh "kubectl apply -f example_svc.yaml"
+                sh "kubectl delete service example-service"
+                sh "kubectl apply -f Jenkins-demo/example_svc.yaml"
             }
         }
     }
