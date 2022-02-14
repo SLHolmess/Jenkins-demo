@@ -1,17 +1,23 @@
 pipeline {
-    agent any
-    stages {
-        stage("Checkout code") {
-            steps {
-                checkout scm
-            }
-        }
-        stage("deploy") {
-            steps {
-                sh "kubectl delete service example-service"
-                sh "kubectl apply -f Jenkins-demo/example_svc.yaml"
-            }
-        }
-    }
-}
 
+  agent { label 'kubeagent' }
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git url:'https://github.com/SLHolmess/Jenkins-demo', branch:'main'
+      }
+    }
+
+    stage('Deploy App') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "example_svc.yaml", kubeconfigId: "mykubeconfig")
+        }
+      }
+    }
+
+  }
+
+}
