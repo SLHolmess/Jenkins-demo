@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { label 'kubeagent' }
+  agent { label 'kubepod' }
 
   stages {
 
@@ -10,10 +10,12 @@ pipeline {
       }
     }
 
-    stage('Deploy App') {
+    stage('deploy') {
       steps {
-        script {
-          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig")
+        container ('jnlp') {
+          sh '''
+          kubectl apply -f nginx.yaml
+          '''
         }
       }
     }
