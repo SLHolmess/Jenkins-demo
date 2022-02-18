@@ -12,10 +12,8 @@ pipeline {
 
     stage('deploy') {
       steps {
-        container('jnlp') {
-          withKubeConfig([credentialsId: 'mykubeconfig']) {  
+        container('jnlp') {  
           sh 'kubectl apply -f nginx.yaml'
-          }
         }
       }
     }
