@@ -11,18 +11,14 @@ pipeline {
     }
 
     stage('deploy') {
-             steps {
-                 container ('jnlp') {
-                      withCredentials([
-                          kubeconfigFile(
-                          credentialsId: mykubeconfig,
-                          variable: 'KUBECONFIG')
-                          ]) {
-                          sh 'envsubst < deploy/all-in-one/nginx.yaml | kubectl apply -f -'
-                      }
-                 }
-             }
+      steps {
+        container ('base') {
+          sh '''
+          kubectl apply -f nginx.yaml
+          '''
         }
+      }
+    }
     
   }
 
