@@ -13,7 +13,7 @@ pipeline {
     stage('deploy') {
       steps {
         withKubeConfig([credentialsId: 'mykubeconfig']) {  
-        sh './kubectl apply -f nginx.yaml'
+        sh 'kubectl apply -f nginx.yaml'
         }
       }
     }
