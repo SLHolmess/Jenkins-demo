@@ -12,7 +12,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        container ('kubectl') {
+        container ('jnlp') {
           sh '''
           kubectl apply -f nginx.yaml
           '''
