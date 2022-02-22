@@ -13,9 +13,9 @@ pipeline {
     stage('deploy') {
       steps {
         withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'TestKubernetes', namespace: 'kube-system', serverUrl: 'https://10.0.2.15:6443']]) {
-        kubectl apply -f nginx.yaml
+          kubectl apply -f nginx.yaml
         }
       }
+    }
   }
-
 }
