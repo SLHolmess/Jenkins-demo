@@ -12,12 +12,10 @@ pipeline {
 
     stage('deploy') {
       steps {
-        container('jnlp') {  
-          sh 'kubectl apply -f nginx.yaml'
+        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'TestKubernetes', namespace: 'kube-system', serverUrl: 'https://10.0.2.15:6443']]) {
+        kubectl apply -f nginx.yaml
         }
       }
-    }
-    
   }
 
 }
