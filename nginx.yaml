@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   labels:
     app: web
-  name: nginx
+  name: mynginx
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - image: nginx
-        name: nginx
+        name: mynginx
 
 ---
 apiVersion: v1
@@ -25,7 +25,7 @@ kind: Service
 metadata:
   labels:
     app: web
-  name: nginx-service
+  name: mynginx
 spec:
   ports:
   - nodePort: 32223
