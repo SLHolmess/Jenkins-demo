@@ -1,12 +1,15 @@
 pipeline {
-
-  agent { label 'kubepod' }
-
+  agent { label 'kubeagent' }
   stages {
-    stage('deploy') {
+    stage('Checkout Source') {
       steps {
-        withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'TestKubernetes', namespace: 'kube-system', serverUrl: '']]) {
-          kubectl apply -f nginx.yaml
+        git url:'https://github.com/SLHolmess/Jenkins-demo', branch:'main'
+      }
+    }
+    stage('Deploy App') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig")
         }
       }
     }
