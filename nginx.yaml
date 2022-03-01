@@ -6,7 +6,7 @@ metadata:
     app: web
   name: mynginx
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web
@@ -28,7 +28,7 @@ metadata:
   name: mynginx
 spec:
   ports:
-  - nodePort: 32224
+  - nodePort: 32223
     port: 80
     protocol: TCP
     targetPort: 80
